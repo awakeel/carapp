@@ -2,27 +2,36 @@ import type { Express } from "express";
 import { createServer } from "http";
 import { storage } from "./storage";
 import { insertCarAnalysisSchema } from "@shared/schema";
+import { analyzeCarImage } from "./services/gemini";
 
 export async function registerRoutes(app: Express) {
-  // Store analysis results
+  // Analyze and store results
   app.post("/api/analyze", async (req, res) => {
     try {
-      const { imageUrl, results } = req.body;
-      if (!imageUrl || !results) {
-        return res.status(400).json({ error: "Image URL and results are required" });
+      const { imageBase64 } = req.body;
+      if (!imageBase64) {
+        return res.status(400).json({ error: "Image data is required" });
       }
 
-      // Validate the data against our schema
+      // Analyze the image using Gemini
+      const analysis = await analyzeCarImage(imageBase64);
+
+      // Create an image URL from the base64 data
+      const imageUrl = `data:image/jpeg;base64,${imageBase64}`;
+
+      // Validate and store the results
       const validatedData = insertCarAnalysisSchema.parse({
         imageUrl,
-        results
+        results: analysis.results
       });
 
-      const analysis = await storage.createCarAnalysis(validatedData);
-      res.json(analysis);
+      const savedAnalysis = await storage.createCarAnalysis(validatedData);
+      res.json(savedAnalysis);
     } catch (error) {
       console.error("Analysis error:", error);
-      res.status(500).json({ error: "Failed to store analysis" });
+      res.status(500).json({ 
+        error: error instanceof Error ? error.message : "Failed to analyze image" 
+      });
     }
   });
 
