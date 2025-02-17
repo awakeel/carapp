@@ -1,29 +1,26 @@
 import { carAnalysis, type CarAnalysis, type InsertCarAnalysis } from "@shared/schema";
+import { db } from "./db";
+import { eq } from "drizzle-orm";
 
 export interface IStorage {
   createCarAnalysis(data: InsertCarAnalysis): Promise<CarAnalysis>;
   getCarAnalysis(id: number): Promise<CarAnalysis | undefined>;
 }
 
-export class MemStorage implements IStorage {
-  private analyses: Map<number, CarAnalysis>;
-  private currentId: number;
-
-  constructor() {
-    this.analyses = new Map();
-    this.currentId = 1;
-  }
-
+export class DatabaseStorage implements IStorage {
   async createCarAnalysis(data: InsertCarAnalysis): Promise<CarAnalysis> {
-    const id = this.currentId++;
-    const analysis: CarAnalysis = { ...data, id };
-    this.analyses.set(id, analysis);
+    const [analysis] = await db.insert(carAnalysis)
+      .values(data)
+      .returning();
     return analysis;
   }
 
   async getCarAnalysis(id: number): Promise<CarAnalysis | undefined> {
-    return this.analyses.get(id);
+    const [analysis] = await db.select()
+      .from(carAnalysis)
+      .where(eq(carAnalysis.id, id));
+    return analysis;
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();
