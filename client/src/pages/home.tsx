@@ -1,14 +1,18 @@
 
 import { CarAnalyzer } from "@/components/car-analyzer";
+import { Car } from "lucide-react";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8 space-y-8">
-        {/* Image Upload Section */}
+        {/* Image Analysis Section */}
         <div className="bg-white rounded-xl shadow-xl overflow-hidden">
           <div className="bg-gradient-to-r from-slate-900 to-slate-800 p-8 text-white">
-            <h2 className="text-3xl font-bold mb-2">Analyze Your Car</h2>
+            <div className="flex items-center gap-3 mb-4">
+              <Car className="h-8 w-8" />
+              <h2 className="text-3xl font-bold">Analyze Your Car</h2>
+            </div>
             <p className="text-gray-200">Upload a photo or take a picture to get instant AI analysis</p>
           </div>
           <div className="p-8">

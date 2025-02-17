@@ -25,7 +25,10 @@ export function Header() {
       <div className="container mx-auto px-4 py-6">
         <div className="flex items-center justify-between">
           <Link href="/">
-            <a className="text-3xl font-bold text-slate-900">Car Recognition</a>
+            <a className="text-3xl font-bold text-slate-900 flex items-center gap-2">
+              <Car className="h-8 w-8" />
+              Car Recognition
+            </a>
           </Link>
 
           <div className="flex items-center gap-4">
