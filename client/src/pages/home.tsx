@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8 space-y-8">
-        {/* Image Analysis Section */}
+        {/* Image Upload and Camera Section */}
         <div className="bg-white rounded-xl shadow-xl overflow-hidden">
           <div className="bg-gradient-to-r from-slate-900 to-slate-800 p-8 text-white">
             <div className="flex items-center gap-3 mb-4">
