@@ -21,11 +21,11 @@ export function Header() {
   };
 
   return (
-    <header className="bg-gradient-to-r from-slate-900 to-slate-800 text-white shadow-lg">
+    <header className="bg-white shadow-lg">
       <div className="container mx-auto px-4 py-6">
         <div className="flex items-center justify-between">
           <Link href="/">
-            <a className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">Car Recognition</a>
+            <a className="text-3xl font-bold text-slate-900">Car Recognition</a>
           </Link>
 
           <div className="flex items-center gap-4">
@@ -35,14 +35,14 @@ export function Header() {
                   <User className="h-4 w-4" />
                   <span>{user.username}</span>
                 </div>
-                <Button variant="outline" size="sm" onClick={handleLogout} className="text-white border-white hover:bg-white/10">
+                <Button variant="outline" size="sm" onClick={handleLogout} className="text-slate-900 border-slate-900 hover:bg-slate-100">
                   <LogOut className="h-4 w-4 mr-2" />
                   Logout
                 </Button>
               </>
             ) : (
               <Link href="/auth">
-                <Button className="bg-blue-500 hover:bg-blue-600">Sign In</Button>
+                <Button className="bg-slate-900 hover:bg-slate-800 text-white">Sign In</Button>
               </Link>
             )}
           </div>
