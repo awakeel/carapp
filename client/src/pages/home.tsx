@@ -20,21 +20,19 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Features Section */}
-        <div className="bg-white rounded-xl shadow-xl p-8">
-          <h2 className="text-2xl font-bold mb-6">App Features</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="p-6 bg-slate-50 rounded-lg">
-              <h3 className="font-semibold text-lg mb-2">Instant Analysis</h3>
-              <p className="text-slate-600">Get detailed information about any car in seconds using advanced AI technology</p>
-            </div>
-            <div className="p-6 bg-slate-50 rounded-lg">
-              <h3 className="font-semibold text-lg mb-2">Multiple Input Methods</h3>
-              <p className="text-slate-600">Upload existing photos or use your camera to capture cars in real-time</p>
-            </div>
-            <div className="p-6 bg-slate-50 rounded-lg">
-              <h3 className="font-semibold text-lg mb-2">Detailed Results</h3>
-              <p className="text-slate-600">View comprehensive details including make, model, year, and distinctive features</p>
+        {/* App Features */}
+        <div className="bg-white rounded-xl shadow-xl overflow-hidden">
+          <div className="p-8">
+            <h3 className="text-2xl font-bold mb-6">App Features</h3>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="p-6 bg-slate-50 rounded-lg">
+                <h4 className="text-lg font-semibold mb-2">Instant Analysis</h4>
+                <p className="text-gray-600">Get detailed information about any car in seconds using advanced AI technology</p>
+              </div>
+              <div className="p-6 bg-slate-50 rounded-lg">
+                <h4 className="text-lg font-semibold mb-2">Multiple Input Methods</h4>
+                <p className="text-gray-600">Upload an existing photo or take a new picture directly through your device camera</p>
+              </div>
             </div>
           </div>
         </div>
