@@ -7,6 +7,7 @@ import { analyzeCarImage } from "./services/gemini";
 export async function registerRoutes(app: Express) {
   // Analyze and store results
   app.post("/api/analyze", async (req, res) => {
+  // Allow analysis without auth
     try {
       const { imageBase64 } = req.body;
       if (!imageBase64) {

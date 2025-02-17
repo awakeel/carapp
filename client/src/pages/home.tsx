@@ -14,6 +14,11 @@ export default function Home() {
       
       <main className="container mx-auto px-4 py-8">
         <CarAnalyzer />
+        <div className="text-center mt-8">
+          <p className="text-muted-foreground mb-2">
+            Sign in to save your analysis history
+          </p>
+        </div>
       </main>
     </div>
   );

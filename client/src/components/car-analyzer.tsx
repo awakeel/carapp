@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 
 export function CarAnalyzer() {
   const [activeImage, setActiveImage] = useState<string | null>(null);
+  const { user } = useAuth();
   const { toast } = useToast();
 
   const analyzeMutation = useMutation({
