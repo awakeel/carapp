@@ -10,7 +10,7 @@ export interface IStorage {
 export class DatabaseStorage implements IStorage {
   async createCarAnalysis(data: InsertCarAnalysis): Promise<CarAnalysis> {
     const [analysis] = await db.insert(carAnalysis)
-      .values(data)
+      .values([data])  // Fix: Wrap data in an array
       .returning();
     return analysis;
   }
