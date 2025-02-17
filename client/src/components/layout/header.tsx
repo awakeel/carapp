@@ -3,7 +3,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
-import { LogOut, User } from "lucide-react";
+import { LogOut, User, Car } from "lucide-react";
 
 export function Header() {
   const { user, logoutMutation } = useAuth();
