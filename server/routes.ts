@@ -12,11 +12,13 @@ export async function registerRoutes(app: Express) {
         return res.status(400).json({ error: "Image URL and results are required" });
       }
 
-      const analysis = await storage.createCarAnalysis({
+      // Validate the data against our schema
+      const validatedData = insertCarAnalysisSchema.parse({
         imageUrl,
         results
       });
 
+      const analysis = await storage.createCarAnalysis(validatedData);
       res.json(analysis);
     } catch (error) {
       console.error("Analysis error:", error);
@@ -26,11 +28,26 @@ export async function registerRoutes(app: Express) {
 
   // Get analysis by ID
   app.get("/api/analysis/:id", async (req, res) => {
-    const analysis = await storage.getCarAnalysis(parseInt(req.params.id));
-    if (!analysis) {
-      return res.status(404).json({ error: "Analysis not found" });
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ error: "Invalid ID format" });
+      }
+
+      const analysis = await storage.getCarAnalysis(id);
+      if (!analysis) {
+        return res.status(404).json({ error: "Analysis not found" });
+      }
+      res.json(analysis);
+    } catch (error) {
+      console.error("Fetch error:", error);
+      res.status(500).json({ error: "Failed to fetch analysis" });
     }
-    res.json(analysis);
+  });
+
+  // Add a health check endpoint
+  app.get("/api/health", (_req, res) => {
+    res.json({ status: "ok" });
   });
 
   const httpServer = createServer(app);
