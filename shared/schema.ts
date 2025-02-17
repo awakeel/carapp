@@ -1,6 +1,13 @@
-import { pgTable, text, serial, json } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, json, timestamp } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
+
+export const users = pgTable("users", {
+  id: serial("id").primaryKey(),
+  username: text("username").notNull().unique(),
+  password: text("password").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
 
 export const carAnalysis = pgTable("car_analysis", {
   id: serial("id").primaryKey(),
@@ -13,12 +20,23 @@ export const carAnalysis = pgTable("car_analysis", {
     licensePlate?: string;
     type: string;
   }>().notNull(),
+  userId: serial("user_id").references(() => users.id),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
-export const insertCarAnalysisSchema = createInsertSchema(carAnalysis).pick({
-  imageUrl: true,
-  results: true,
+// Schema for inserting users
+export const insertUserSchema = createInsertSchema(users).omit({
+  id: true,
+  createdAt: true,
 });
 
+export const insertCarAnalysisSchema = createInsertSchema(carAnalysis).omit({
+  id: true,
+  userId: true,
+  createdAt: true,
+});
+
+export type InsertUser = z.infer<typeof insertUserSchema>;
+export type User = typeof users.$inferSelect;
 export type InsertCarAnalysis = z.infer<typeof insertCarAnalysisSchema>;
 export type CarAnalysis = typeof carAnalysis.$inferSelect;
